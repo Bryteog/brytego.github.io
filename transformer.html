@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto"><head><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="index, follow">
+    
+    <title>The Transformer</title>
+    <meta name = "description" content = "This blog post aims to introduce you to the Transformer architecture and the math behind them">
+    <meta name = "Bright Okyere">
+    <link rel="canonical" href="https://bryteog.github.io/transformer">
+    <meta name="theme-color" content="#2e2e33">
+
+    <body class id = "top">
+        <script>
+            MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$','$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+            };
+        
+            window.addEventListener('load', (event) => {
+                document.querySelectorAll("mjx-container").forEach(function(x){
+                x.parentElement.classList += 'has-jax'})
+            });
+        
+        </script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script type="text/javascript" id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="hhttps://bryteog.github.io/" accesskey="h" title="Bryte's blog (Alt + H)">B's blog</a>
+            </div>
+            <ul id="menu">
+                <li>
+                    <a href="https://bryteog.github.io/" title="Posts">
+                        <span>Posts</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/Bryteog?tab=repositories" title="Projects">
+                        <span>Projects</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <button id="scroll-top-btn">Top of page</button>
+
+    <main>   
+    <h2>The Transformer</h2><br>
+
+    <div class="post-content">
+        
+    <p>The Transformer architecture is deep learning architecture introduced with the aim of better handling sequential data. The model is extremely succesful in this regards, it's now widely used in generative models (variations of it, at least).
+        The, now infamous, Attention is all you need paper, introduced the concept of Attention. The model is trained on the input sequence, to focus on the postition of each input and and their relative effect to other parts of the input sequence, as well as the contextual info they may carry. It is able to perform a range of tasks like text completion, text generation and even image and audio tasks.
+        The Attention model consists of two parts, An Encoder and a Decoder.</p><br>
+    <p>The Encoder.</p>
+    images of transformer / encoder / decoder / position ecodings / matrices / dot Attention / multihead / matrix with mask Attention / formula for scaled Attention
+    <p>The Encoder part takes the input text, (the Transformer architecture was orginally designed for text, later implementations have been developed to be applied to other forms of data) 
+        and creates unique representations known as word embeddings for each word or subwords, depending on its length, (repeating words however get the same representation). 
+        The embeddings are vectors, usually, of size 512 each, this is a hyperparameter and can be changed. </p>
+    <p>Positional Encoders for various inputs are also created to learn the order of the sequence of inputs and take note of their postitions as well as influence on a target word. This is important because the position and order of words in language is of essence in conveying meaning.
+        These are represented as vectors which are added to each input embedding. The postitional vectors follow a pattern and the model learns as the computation moves on, to determine the position of each input.</p>
+    <p>Three identical matrices are obtained by dotting the embedding for an input with an arbitrarily defined matrix trained alogside the model.
+        The matrices are labelled as Key, Value, and Query matrix and are created for each input. These matrix often have smaller dimension than the input embedding.
+        <br>Eg. For an input embedding of dimension 2x4 and arbitrary matrix of 4x3, this creates a matrix of dimension 2x3.</p>
+    <p>The matrices are passed into the Attention layer. This layer helps the encoder focus on a particular word or input as well as the other inputs that acts on it.
+        The dot of the Q and K-transpose matrices is divided by the root of input dimension (64 in the paper). Softmax is applied to the result and then dotted with the V matrix.
+        This authors called this scaled dot-product Attention</p>
+    <p>This is the Attention value for a single Attention Head and the process is repeated for each input and across other Heads.
+        This is indicated as Multi Head Attention on the Transformer diagram and offers benefits such as expanding the models ability to focus on different parts of te sequence.
+        This is because the resulting Attention value is sourced multiple heads each of which have carried out their own computation, presenting unique value. In other words, each head presents a unique perspective.</p>
+    <p>The Attention Values, from different Heads are concantenated and dotted with a Weighted matrix(W0) trained alogside the model. A residual or skip connection, ie input embedding which wasn't passed into the Attention Head is added to the result from the Attention Head.
+        It's then normalised and sent into a Feed Forward Neural Network which acts on each individual output.</p>
+    <p>The Feed Forward Network has been found to learn important patterns, including semantic. The output is added to a residual connection ie the input of the FFNN and normalised.
+        This describes the operation of a single encoder layer, in practice multiple encoder layers are used and the output of each layer serves as the input of the next layer, up until the last layer whose ouput serves as input for the decoder block and layers.</p>
+    <br>
+    <p>The Decoder.</p>
+    <p>Positional Encoding is added to the input embedding of the Decoder. 
+        The Decoder accepts as input the output of the Encoder, which have been transformed into Key and Value matrices and uses this in the Attention layer, the Query matrix is created by the layer below the Decoder's Attention layer.</p>
+    <p>The Masked Multi-Head Attention in the Decoder block is a type of Attention which covers subsequent tokens in the sequence, preventing the model from referencing them. In the computation, this is done by setting them to negative infinity.
+        Thus, when Softmax is applied it gets a value of zero, having no influence on the outcome.</p>
+    <p>The results are passed onto the linear layer, which converts the Attention result into a logits vector the same size as the vocabulary size. Softmax is applied to the vector and the position with the largest probability is chosen.
+        The word correspoding with this position is selected as the output of the model.</p>
+    <p>Self Attention is a type of Attention layer that considers only one input sequence. Casual Self Attention also known as Autoregressive Attention, which is implemented in the Decoder block, considers information from previous tokens only, this is useful in tasks such as text generation.
+        It should be noted that there exists Bidirectional Attention, this incoporates information from both previous and subsequent tokens and is useful in tasks such as semantic classification, where meanings
+        of entire sequences are of essence. In most literature on Transformers, Casual Self Attention is often simply referred to as Self Attention, Bidirectional is however stated specifically.</p>
+    <p>There's also Cross Attention, which considers multiple inputs. This used for translation tasks where the statement in a language and its translation is are both used in training the model, as well as in diffusion models where image or text may be the input.</p>
+    <p>The formula for Positional Encoding used in the literature is;</p>
+    <p></p>
+    <p></p>
+    <p></p>
+
+        </div>     
+    
+    </main>
+    
+
+
+
+
+
+
+
+
+
+    <script>
+        document.getElementById("theme-toggle").addEventListener("click", () => {
+            if (document.body.className.includes("dark")) {
+                document.body.classList.remove('dark');
+                localStorage.setItem("pref-theme", 'light');
+            } else {
+                document.body.classList.add('dark');
+                localStorage.setItem("pref-theme", 'dark');
+            }
+        })
+    </script>
+    <script>
+        var mybutton = document.getElementById("top-link");
+        window.onscroll = function () {
+            if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+                mybutton.style.visibility = "visible";
+                mybutton.style.opacity = "1";
+            } else {
+                mybutton.style.visibility = "hidden";
+                mybutton.style.opacity = "0";
+            }
+        };
+    </script>
+    <script>
+        let menu = document.getElementById('menu')
+        if (menu) {
+            menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+            menu.onscroll = function () {
+                localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+            }
+        }
+    
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener("click", function (e) {
+                e.preventDefault();
+                var id = this.getAttribute("href").substr(1);
+                if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                        behavior: "smooth"
+                    });
+                } else {
+                    document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+                }
+                if (id === "top") {
+                    history.replaceState(null, null, " ");
+                } else {
+                    history.pushState(null, null, `#${id}`);
+                }
+            });
+        });
+    
+    </script>
+    <script>
+        document.querySelectorAll('pre > code').forEach((codeblock) => {
+            const container = codeblock.parentNode.parentNode;
+    
+            const copybutton = document.createElement('button');
+            copybutton.classList.add('copy-code');
+            copybutton.innerText = 'copy';
+    
+            function copyingDone() {
+                copybutton.innerText = 'copied!';
+                setTimeout(() => {
+                    copybutton.innerText = 'copy';
+                }, 2000);
+            }
+    
+            copybutton.addEventListener('click', (cb) => {
+                if ('clipboard' in navigator) {
+                    navigator.clipboard.writeText(codeblock.textContent);
+                    copyingDone();
+                    return;
+                }
+    
+                const range = document.createRange();
+                range.selectNodeContents(codeblock);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+                try {
+                    document.execCommand('copy');
+                    copyingDone();
+                } catch (e) { };
+                selection.removeRange(range);
+            });
+    
+            if (container.classList.contains("highlight")) {
+                container.appendChild(copybutton);
+            } else if (container.parentNode.firstChild == container) {
+                
+            } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+                
+                codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+            } else {
+                
+                codeblock.parentNode.appendChild(copybutton);
+            }
+        });
+    </script>
+    <!--I have no idea what these mean, but they work and I don't want to delete them-->
+    <script>
+        const scrollTopBtn = document.getElementById("scroll-top-btn");
+
+window.onscroll = function() {
+  // Show button when scrolled past a certain point
+  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+    scrollTopBtn.style.display = "block";
+  } else {
+    scrollTopBtn.style.display = "none";
+  }
+};
+scrollTopBtn.addEventListener("click", () => {
+  // Smooth scroll animation
+  const scrollToTop = () => {
+    const currentScrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+    if (currentScrollPos > 0) {
+      window.scrollTo({ top: currentScrollPos - currentScrollPos / 1, behavior: "smooth" });
+      setTimeout(scrollToTop, 500);
+    }
+  };
+  scrollToTop();
+});
+        </script>
+
+</body>
+
+
+<footer class="footer">
+    <span>2024 <a href="https://bryteog.github.io/">Bryte</a></span>
+    </footer>
+<a href="#top" aria-label="go to top" title="Go to Top of page (Alt + G)" class="top-link" id="top-link" accesskey="g" style="visibility: hidden; opacity: 0;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z"></path>
+    </svg>
+</a>
+
+<!-- css style file -->
+<link rel="stylesheet" href="style.css">
+<!-- custom js file -->
+<script src="script.js"></script>
+
+</html>
