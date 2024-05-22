@@ -1,4 +1,301 @@
-#### brytego.github.io
+<!DOCTYPE html>
+<html lang="en" dir="auto"><head><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="index, follow">
+    
+    <title>Homepage</title>
+    <meta name = "description" content = "Blog Homepage">
+    <meta name = "Bright Okyere">
+    <link rel="canonical" href="https://bryteog.github.io/">
+    <meta name="theme-color" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HFT45VFBX6"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-HFT45VFBX6', { 'anonymize_ip': false });
+}
+</script>
+<meta property="og:title" content="B's blog" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://bryteog.github.io/" />
 
 
-Howdy!
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$','$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+
+  window.addEventListener('load', (event) => {
+      document.querySelectorAll("mjx-container").forEach(function(x){
+        x.parentElement.classList += 'has-jax'})
+    });
+
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="hhttps://bryteog.github.io/" accesskey="h" title="Bryte's blog (Alt + H)">B's blog</a>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://bryteog.github.io/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/Bryteog?tab=repositories" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<button id="scroll-top-btn">Top of page</button>
+
+<main class="main"> 
+<article class="first-entry home-info">
+    <header class="entry-header">
+        <h1>Hi!</h1>
+    </header>
+    <section class="entry-content">
+        <p>I'm Bryte, a Math grad from <a href="">KNUST</a> with interest in Data Science and Machine Learning, specifically Computer Vision and Natural Language Processing. 
+          This blog will be where I share my "understanding and thoughts" on Machine Learning research, releases and advances I find interesting and in general, stuff ML-related.</p>
+    </section>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>The Transformer
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>The transformer network, one of the most impactful research findings in ML, and what's powered (mostly) the Generative AI boom. I share my understanding of the architecture as well as code snippets.</p>
+  </section>
+  <!--<footer class="entry-footer">Date: April 12, 2024  |  Estimated Reading Time: 20 min  |  Author: Lilian Weng</footer>-->
+  <a class="entry-link" aria-label="post link to Transformers" href="https://bryteog.github.io/posts/transformer/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Diffusion Models
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>A dive into the intuition of Diffusion based models and the Mathematics involved. <br> Updates will be added as time goes on.</p>
+  </section>
+  <a class="entry-link" aria-label="post link to Diffusion models" href="https://bryteog.github.io/posts/diffusion/"></a>
+</article>
+
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 500) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+<!--I have no idea what these mean, but they work and I don't want to delete them-->
+<script>
+    const scrollTopBtn = document.getElementById("scroll-top-btn");
+
+window.onscroll = function() {
+// Show button when scrolled past a certain point
+if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 50) {
+scrollTopBtn.style.display = "block";
+} else {
+scrollTopBtn.style.display = "none";
+}
+};
+scrollTopBtn.addEventListener("click", () => {
+// Smooth scroll animation
+const scrollToTop = () => {
+const currentScrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+if (currentScrollPos > 0) {
+  window.scrollTo({ top: currentScrollPos - currentScrollPos / 1, behavior: "smooth" });
+  setTimeout(scrollToTop, 500);
+}
+};
+scrollToTop();
+});
+    </script>
+
+</body>
+<footer class="footer">
+<span>2024 <a href="https://bryteog.github.io/">Bryte</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top of page (Alt + G)" class="top-link" id="top-link" accesskey="g" style="visibility: hidden; opacity: 0;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+    <path d="M12 6H0l6-6z"></path>
+</svg>
+</a>
+<br>
+<br>
+<br>
+<br>
+<footer class="footer">
+  <span>The layout and format of these pages may look eerily similar to that of <a href="https://lilianweng.github.io/">Lilian Weng</a> (Her content is really great check it out),</span>
+  <span> thats because I ripped it off her site. My understanding of WebDevmnt, isn't good enough for me to do this, on my own, from scratch.</span>
+  <span></span>
+  </footer>
+<link rel="stylesheet" href="homefile.css">
+</html>
